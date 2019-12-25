@@ -10,7 +10,7 @@
     </parent>
     <groupId>auth.nosy.tech</groupId>
     <artifactId>nosy-auth</artifactId>
-    <version>0.0.1</version>
+    <version>2.0</version>
     <name>nosy-auth</name>
     <description>Nosy Auth</description>
 
