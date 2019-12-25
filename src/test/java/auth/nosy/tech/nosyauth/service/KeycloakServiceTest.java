@@ -182,4 +182,24 @@ public class KeycloakServiceTest {
         when(keycloakConfigBean.getTokens(user)).thenReturn(tokenCollection);
         assertNotNull(keycloakService.getTokens(user));
     }
+    @Test
+    public void tokenCollection(){
+        String accessToken="test";
+        String tokenType= "type";
+        String refreshToken="refreshToken";
+        String sessionState="sessionState";
+        TokenCollection tokenCollection=new TokenCollection();
+        tokenCollection.setAccessToken(accessToken);
+        tokenCollection.setExpiresIn(333);
+        tokenCollection.setNotBeforePolicy(2);
+        tokenCollection.setSessionState(sessionState);
+        tokenCollection.setTokenType(tokenType);
+        tokenCollection.setRefreshToken(refreshToken);
+        assertEquals(accessToken, tokenCollection.getAccessToken());
+        assertEquals(refreshToken, tokenCollection.getRefreshToken());
+        assertEquals(sessionState, tokenCollection.getSessionState());
+        assertEquals(333, tokenCollection.getExpiresIn());
+        assertEquals(2, tokenCollection.getNotBeforePolicy());
+
+    }
 }
