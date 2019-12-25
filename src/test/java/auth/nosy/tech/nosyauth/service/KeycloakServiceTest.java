@@ -1,6 +1,7 @@
 package auth.nosy.tech.nosyauth.service;
 
 import auth.nosy.tech.nosyauth.config.KeycloakConfigBean;
+import auth.nosy.tech.nosyauth.dto.TokenCollectionDto;
 import auth.nosy.tech.nosyauth.exception.AuthorizationServerCannotPerformTheOperation;
 import auth.nosy.tech.nosyauth.exception.UserAlreadyExistException;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
@@ -195,11 +196,27 @@ public class KeycloakServiceTest {
         tokenCollection.setSessionState(sessionState);
         tokenCollection.setTokenType(tokenType);
         tokenCollection.setRefreshToken(refreshToken);
+        tokenCollection.setRefreshExpiresIn(2);
         assertEquals(accessToken, tokenCollection.getAccessToken());
         assertEquals(refreshToken, tokenCollection.getRefreshToken());
         assertEquals(sessionState, tokenCollection.getSessionState());
         assertEquals(333, tokenCollection.getExpiresIn());
         assertEquals(2, tokenCollection.getNotBeforePolicy());
-
+        assertEquals(2, tokenCollection.getRefreshExpiresIn());
+        assertEquals(tokenType, tokenCollection.getTokenType());
+    }
+    @Test
+    public void tokenCollectionDto(){
+        String accessToken="test";
+        String tokenType= "type";
+        String refreshToken="refreshToken";
+        String sessionState="sessionState";
+        TokenCollectionDto tokenCollectionDto=new TokenCollectionDto();
+        tokenCollectionDto.setAccessToken(accessToken);
+        tokenCollectionDto.setExpiresIn(23);
+        tokenCollectionDto.setRefreshToken(refreshToken);
+        assertEquals(accessToken, tokenCollectionDto.getAccessToken());
+        assertEquals(refreshToken, tokenCollectionDto.getRefreshToken());
+        assertEquals(23, tokenCollectionDto.getExpiresIn());
     }
 }
