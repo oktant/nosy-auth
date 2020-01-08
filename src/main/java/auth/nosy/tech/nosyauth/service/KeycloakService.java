@@ -8,7 +8,6 @@ import auth.nosy.tech.nosyauth.model.TokenCollection;
 import auth.nosy.tech.nosyauth.model.User;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UsersResource;
-import org.keycloak.representations.RefreshToken;
 import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
