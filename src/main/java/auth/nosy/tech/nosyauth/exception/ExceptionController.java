@@ -12,4 +12,8 @@ public class ExceptionController {
     public ResponseEntity<MessageError> authorizationServerCannotPerformTheOperation() {
         return new ResponseEntity<>(MessageError.ACCESS_FORBIDDEN_EXCEPTION, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(value = RefreshTokenException.class)
+    public ResponseEntity<MessageError> refreshTokenException() {
+        return new ResponseEntity<>(MessageError.REFRESH_TOKEN_EXCEPTION, HttpStatus.BAD_REQUEST);
+    }
 }
