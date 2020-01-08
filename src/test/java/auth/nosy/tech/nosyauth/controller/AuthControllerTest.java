@@ -1,6 +1,5 @@
 package auth.nosy.tech.nosyauth.controller;
 
-import auth.nosy.tech.nosyauth.controller.AuthController;
 import auth.nosy.tech.nosyauth.dto.TokenCollectionDto;
 import auth.nosy.tech.nosyauth.dto.UserDto;
 import auth.nosy.tech.nosyauth.mapper.UserMapper;
