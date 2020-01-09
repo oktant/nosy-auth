@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
+
 public class UserServiceTest {
     @InjectMocks
     private UserService userService;
@@ -104,6 +105,9 @@ public class UserServiceTest {
         User userWithInvalidPassword=new User();
         user.setEmail("test@nosy.tech");
         user.setPassword("");
+
         Assert.assertEquals(user.getEmail(),userService.addUser(userWithInvalidPassword).getEmail());
     }
+
+
 }

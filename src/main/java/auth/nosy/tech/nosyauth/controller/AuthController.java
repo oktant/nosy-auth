@@ -48,13 +48,6 @@ public class AuthController {
                         toTokenCollectionDto(keycloakService.getTokens(UserMapper.INSTANCE.toUser(userdto))), HttpStatus.OK);
     }
 
-    @PostMapping(value="refresh-token")
-    public ResponseEntity<TokenCollectionDto> getRefreshToken(@RequestBody @Valid TokenCollectionDto collectionDto) throws IOException {
-        return new ResponseEntity<>(
-                TokenCollectionMapper.INSTANCE.
-                        toTokenCollectionDto(keycloakService.refreshToken(collectionDto.getRefreshToken())), HttpStatus.OK);
-    }
-
     @PostMapping(value = "/users")
     public ResponseEntity<UserDto> newUser(@RequestBody @Valid UserDto userdto) {
         return new ResponseEntity<>(
