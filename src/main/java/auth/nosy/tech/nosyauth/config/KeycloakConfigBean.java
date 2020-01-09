@@ -1,6 +1,7 @@
 package auth.nosy.tech.nosyauth.config;
 
 import auth.nosy.tech.nosyauth.exception.InvalidUsernameAndPasswordException;
+import auth.nosy.tech.nosyauth.exception.RefreshTokenException;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
 import auth.nosy.tech.nosyauth.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -163,4 +164,29 @@ public class KeycloakConfigBean {
     public String getNosyClientRole() {
         return nosyClientRole;
     }
+
+    public TokenCollection refreshTokens(String refreshToken) throws IOException {
+
+        HttpPost post = new HttpPost(keycloakUrl);
+        List<NameValuePair> params = asList(new BasicNameValuePair(GRANT_TYPE_STRING, "refresh_token"),
+                new BasicNameValuePair("refresh_token", refreshToken),
+                new BasicNameValuePair(CLIENT_SECRET_STRING, clientSecret),
+                new BasicNameValuePair(CLIENT_ID_STRING, clientId)
+        );
+
+        post.setEntity(new UrlEncodedFormEntity(params));
+
+        try(CloseableHttpClient httpclient = HttpClients.createDefault()){
+            return httpclient.execute(post, response -> {
+                ObjectMapper mapper = new ObjectMapper();
+                int status = response.getStatusLine().getStatusCode();
+                if (status >= 200 && status < 300) {
+                    return mapper.readValue(response.getEntity().getContent(), TokenCollection.class);
+                } else {
+                    throw new RefreshTokenException();
+                }
+            });
+        }
+    }
+
 }
