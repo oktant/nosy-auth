@@ -57,8 +57,6 @@ public class AuthControllerTest {
         tokenCollectionDto.setAccessToken("testToken");
         doReturn(true).when(keycloakService).isAuthenticated(tokenCollectionDto.getAccessToken());
         assertEquals(HttpStatus.OK, authController.isAuthenticated(tokenCollectionDto).getStatusCode());
-
-
     }
 
     @Test
@@ -76,8 +74,6 @@ public class AuthControllerTest {
         HttpServletRequest httpServletRequest= Mockito.mock(HttpServletRequest.class);
         doNothing().when(userService).deleteUser(httpServletRequest);
         assertEquals(HttpStatus.NO_CONTENT, authController.deleteUsername(httpServletRequest).getStatusCode());
-
-
     }
 
     @Test
