@@ -6,6 +6,8 @@ import auth.nosy.tech.nosyauth.mapper.TokenCollectionMapper;
 import auth.nosy.tech.nosyauth.mapper.UserMapper;
 import auth.nosy.tech.nosyauth.service.KeycloakService;
 import auth.nosy.tech.nosyauth.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import java.io.IOException;
 public class AuthController {
     private UserService userService;
     private KeycloakService keycloakService;
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     public AuthController(
@@ -43,6 +46,7 @@ public class AuthController {
     @PostMapping(value = "/token")
     public ResponseEntity<TokenCollectionDto> getToken(@RequestBody @Valid UserDto userdto)
             throws IOException {
+        logger.info("Getting token");
         return new ResponseEntity<>(
                 TokenCollectionMapper.INSTANCE.
                         toTokenCollectionDto(keycloakService.getTokens(UserMapper.INSTANCE.toUser(userdto))), HttpStatus.OK);

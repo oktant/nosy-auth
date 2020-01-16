@@ -1,5 +1,6 @@
 package auth.nosy.tech.nosyauth.config;
 
+import auth.nosy.tech.nosyauth.controller.AuthController;
 import auth.nosy.tech.nosyauth.exception.InvalidUsernameAndPasswordException;
 import auth.nosy.tech.nosyauth.exception.RefreshTokenException;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
@@ -15,6 +16,8 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -56,6 +59,7 @@ public class KeycloakConfigBean {
     @Value("${nosy.client.role}")
     private String nosyClientRole;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private TokenCollection tokenCollection;
     @Autowired
@@ -110,7 +114,7 @@ public class KeycloakConfigBean {
                     response -> {
                         ObjectMapper mapper = new ObjectMapper();
                         int status = response.getStatusLine().getStatusCode();
-
+                        logger.info("Response status from keycloak {}, and result is {}", status, response.toString());
                         if (status >= 200 && status < 300) {
                             tokenCollection =
                                     mapper.readValue(response.getEntity().getContent(), TokenCollection.class);
@@ -133,6 +137,7 @@ public class KeycloakConfigBean {
                         new BasicNameValuePair("username", user.getEmail()),
                         new BasicNameValuePair("password", user.getPassword()),
                         new BasicNameValuePair(CLIENT_SECRET_STRING, clientSecret));
+        logger.info("post request to keycloak");
 
         post.setEntity(new UrlEncodedFormEntity(params));
         post.addHeader("Content-Type", "application/x-www-form-urlencoded");
