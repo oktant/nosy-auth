@@ -105,20 +105,23 @@ public class KeycloakConfigBean {
         if (tokenCollectionCurrent == null || tokenCollectionCurrent.getAccessToken() == null) {
             throw new InvalidUsernameAndPasswordException();
         }
-        return getTokenCollection(post);
+        return tokenCollectionCurrent;
     }
     public TokenCollection getTokenCollection(HttpPost post) throws IOException {
+
+
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             return httpclient.execute(
                     post,
                     response -> {
                         ObjectMapper mapper = new ObjectMapper();
                         int status = response.getStatusLine().getStatusCode();
+
                         logger.info("Response status from keycloak {}, and result is {}", status, response.toString());
                         if (status >= 200 && status < 300) {
                             tokenCollection =
                                     mapper.readValue(response.getEntity().getContent(), TokenCollection.class);
-
+                            logger.info(tokenCollection.getAccessToken());
                             return tokenCollection;
 
                         } else {
