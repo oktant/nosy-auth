@@ -16,4 +16,9 @@ public class ExceptionController {
     public ResponseEntity<MessageError> refreshTokenException() {
         return new ResponseEntity<>(MessageError.REFRESH_TOKEN_EXCEPTION, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = InvalidUsernameAndPasswordException.class)
+    public ResponseEntity<MessageError> invalidUsernameOrPassword() {
+        return new ResponseEntity<>(MessageError.INVALID_USERNAME_PASSWORD, HttpStatus.BAD_REQUEST);
+    }
 }
