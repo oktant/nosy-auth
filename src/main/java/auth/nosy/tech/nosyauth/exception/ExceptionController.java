@@ -19,6 +19,6 @@ public class ExceptionController {
 
     @ExceptionHandler(value = InvalidUsernameAndPasswordException.class)
     public ResponseEntity<MessageError> invalidUsernameOrPassword() {
-        return new ResponseEntity<>(MessageError.INVALID_USERNAME_PASSWORD, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(MessageError.INVALID_USERNAME_PASSWORD, HttpStatus.UNAUTHORIZED);
     }
 }
