@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,4 +21,15 @@ public class ExceptionControllerTest {
                 exceptionController.authorizationServerCannotPerformTheOperation().getStatusCode());
     }
 
+    @Test
+    public void refreshTokenException(){
+        assertEquals(HttpStatus.BAD_REQUEST,
+                exceptionController.refreshTokenException().getStatusCode());
+    }
+
+    @Test
+    public void invalidUsernameOrPassword(){
+        assertEquals(HttpStatus.UNAUTHORIZED,
+                exceptionController.invalidUsernameOrPassword().getStatusCode());
+    }
 }
