@@ -1,4 +1,4 @@
-<h1 align="center"> GitPoint </h1> <br>
+<h1 align="center"> NoSy </h1> <br>
 <p align="center">
   <a href="https://gitpoint.co/">
     <img alt="NoSy" title="NoSy" src="nosy_logo.png" width="450">
