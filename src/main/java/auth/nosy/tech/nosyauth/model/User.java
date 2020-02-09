@@ -1,10 +1,12 @@
 package auth.nosy.tech.nosyauth.model;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class User {
-  @NotNull @Email private String email;
+  @NotNull @NotEmpty
+  @Email private String email;
   private String password;
   private String firstName;
   private String lastName;

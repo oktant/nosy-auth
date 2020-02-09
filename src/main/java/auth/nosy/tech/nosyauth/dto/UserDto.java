@@ -2,12 +2,23 @@ package auth.nosy.tech.nosyauth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 public class UserDto {
+  @NotEmpty
+  @NotNull
+  @Email
   private String email;
+
+  @NotEmpty
+  @NotNull
   private String password;
 
+  @NotEmpty
+  @NotNull
   private String firstName;
   private String lastName;
 
