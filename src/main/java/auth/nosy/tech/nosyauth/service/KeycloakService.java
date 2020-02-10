@@ -4,6 +4,7 @@ import auth.nosy.tech.nosyauth.config.KeycloakConfigBean;
 import auth.nosy.tech.nosyauth.exception.AuthorizationServerCannotPerformTheOperation;
 import auth.nosy.tech.nosyauth.exception.RefreshTokenException;
 import auth.nosy.tech.nosyauth.exception.UserAlreadyExistException;
+import auth.nosy.tech.nosyauth.model.LoginUser;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
 import auth.nosy.tech.nosyauth.model.User;
 import org.keycloak.admin.client.resource.RealmResource;
@@ -130,8 +131,8 @@ public class KeycloakService {
         return user;
     }
 
-    public TokenCollection getTokens(User user) throws IOException {
-        return keycloakConfigBean.getTokens(user);
+    public TokenCollection getTokens(LoginUser loginUser) throws IOException {
+        return keycloakConfigBean.getTokens(loginUser);
     }
 
     public void deleteUsername(String username) {

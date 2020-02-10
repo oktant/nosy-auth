@@ -21,4 +21,9 @@ public class ExceptionController {
     public ResponseEntity<MessageError> invalidUsernameOrPassword() {
         return new ResponseEntity<>(MessageError.INVALID_USERNAME_PASSWORD, HttpStatus.UNAUTHORIZED);
     }
+    @ExceptionHandler(value = UserAlreadyExistException.class)
+    public ResponseEntity<MessageError> userAlreadyExistException() {
+        return new ResponseEntity<>(MessageError.USER_ALREADY_EXISTS_EXCEPTION, HttpStatus.BAD_REQUEST);
+    }
+
 }

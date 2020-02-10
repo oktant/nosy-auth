@@ -1,7 +1,10 @@
 package auth.nosy.tech.nosyauth.controller;
 
+import auth.nosy.tech.nosyauth.dto.LoginUserDto;
 import auth.nosy.tech.nosyauth.dto.TokenCollectionDto;
+import auth.nosy.tech.nosyauth.dto.TokenDto;
 import auth.nosy.tech.nosyauth.dto.UserDto;
+import auth.nosy.tech.nosyauth.mapper.LoginUserMapper;
 import auth.nosy.tech.nosyauth.mapper.TokenCollectionMapper;
 import auth.nosy.tech.nosyauth.mapper.UserMapper;
 import auth.nosy.tech.nosyauth.service.KeycloakService;
@@ -39,24 +42,26 @@ public class AuthController {
     }
 
     @PostMapping(path = "/status")
-    public ResponseEntity<Boolean> isAuthenticated(@RequestBody TokenCollectionDto token)  {
-        return new ResponseEntity<>(keycloakService.isAuthenticated(token.getAccessToken()), HttpStatus.OK);
+    public ResponseEntity<Boolean> isAuthenticated(@RequestBody TokenDto tokenDto)  {
+        return new ResponseEntity<>(keycloakService.isAuthenticated(tokenDto.getToken()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/token")
-    public ResponseEntity<TokenCollectionDto> getToken(@RequestBody @Valid UserDto userdto)
+    public ResponseEntity<TokenCollectionDto> getToken(@RequestBody @Valid LoginUserDto loginUserDto)
             throws IOException {
         logger.info("Getting token");
         return new ResponseEntity<>(
                 TokenCollectionMapper.INSTANCE.
-                        toTokenCollectionDto(keycloakService.getTokens(UserMapper.INSTANCE.toUser(userdto))), HttpStatus.OK);
+                        toTokenCollectionDto(keycloakService.getTokens(
+                                LoginUserMapper.INSTANCE.toLoginUser(loginUserDto))), HttpStatus.OK);
     }
 
-    @PostMapping(value="refresh-token")
-    public ResponseEntity<TokenCollectionDto> getRefreshToken(@RequestBody @Valid TokenCollectionDto collectionDto) throws IOException {
+    @PostMapping(value="/refresh-token")
+    public ResponseEntity<TokenCollectionDto> getRefreshToken(
+            @RequestBody @Valid TokenDto tokenDto) throws IOException {
         return new ResponseEntity<>(
                 TokenCollectionMapper.INSTANCE.
-                        toTokenCollectionDto(keycloakService.refreshToken(collectionDto.getRefreshToken())), HttpStatus.OK);
+                        toTokenCollectionDto(keycloakService.refreshToken(tokenDto.getToken())), HttpStatus.OK);
     }
 
     @PostMapping(value = "/users")

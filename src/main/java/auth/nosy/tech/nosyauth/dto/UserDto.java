@@ -16,10 +16,10 @@ public class UserDto {
   @NotEmpty
   @NotNull
   private String password;
-
   @NotEmpty
-  @NotNull
   private String firstName;
+  @NotEmpty
+
   private String lastName;
 
 

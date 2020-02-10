@@ -1,6 +1,8 @@
 package auth.nosy.tech.nosyauth.controller;
 
+import auth.nosy.tech.nosyauth.dto.LoginUserDto;
 import auth.nosy.tech.nosyauth.dto.TokenCollectionDto;
+import auth.nosy.tech.nosyauth.dto.TokenDto;
 import auth.nosy.tech.nosyauth.dto.UserDto;
 import auth.nosy.tech.nosyauth.mapper.UserMapper;
 import auth.nosy.tech.nosyauth.model.User;
@@ -36,12 +38,16 @@ public class AuthControllerTest {
 
     UserDto userDto=new UserDto();
 
+    LoginUserDto loginUserDto=new LoginUserDto();
+
     @Before
     public void setUp(){
         userDto.setFirstName("testFirstName");
         userDto.setLastName("testLastName");
         userDto.setPassword("testPassword");
         userDto.setEmail("test@nosy.tech");
+        loginUserDto.setEmail("test@nosy.tech");
+        loginUserDto.setPassword("testPassword");
     }
 
     @Test
@@ -55,13 +61,15 @@ public class AuthControllerTest {
     public void isAuthenticated()  {
         TokenCollectionDto tokenCollectionDto=new TokenCollectionDto();
         tokenCollectionDto.setAccessToken("testToken");
-        doReturn(true).when(keycloakService).isAuthenticated(tokenCollectionDto.getAccessToken());
-        assertEquals(HttpStatus.OK, authController.isAuthenticated(tokenCollectionDto).getStatusCode());
+        TokenDto tokenDto=new TokenDto();
+        tokenDto.setToken("testToken");
+        doReturn(true).when(keycloakService).isAuthenticated(tokenDto.getToken());
+        assertEquals(HttpStatus.OK, authController.isAuthenticated(tokenDto).getStatusCode());
     }
 
     @Test
     public void getToken() throws IOException {
-        assertEquals(HttpStatus.OK, authController.getToken(userDto).getStatusCode());
+        assertEquals(HttpStatus.OK, authController.getToken(loginUserDto).getStatusCode());
     }
 
     @Test

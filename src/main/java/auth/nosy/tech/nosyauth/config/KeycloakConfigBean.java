@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 
 import auth.nosy.tech.nosyauth.exception.InvalidUsernameAndPasswordException;
 import auth.nosy.tech.nosyauth.exception.RefreshTokenException;
+import auth.nosy.tech.nosyauth.model.LoginUser;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
 import auth.nosy.tech.nosyauth.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -101,8 +102,8 @@ public class KeycloakConfigBean {
     }
   }
 
-  public TokenCollection getTokens(User user) throws IOException {
-    HttpPost post = getPost(user);
+  public TokenCollection getTokens(LoginUser loginUser) throws IOException {
+    HttpPost post = getPost(loginUser);
     TokenCollection tokenCollectionCurrent = getTokenCollection(post);
     if (tokenCollectionCurrent == null || tokenCollectionCurrent.getAccessToken() == null) {
       throw new InvalidUsernameAndPasswordException();
@@ -123,7 +124,6 @@ public class KeycloakConfigBean {
             if (status >= 200 && status < 300) {
               tokenCollection =
                   mapper.readValue(response.getEntity().getContent(), TokenCollection.class);
-              logger.info(tokenCollection.getAccessToken());
               return tokenCollection;
 
             } else {
@@ -133,14 +133,14 @@ public class KeycloakConfigBean {
     }
   }
 
-  private HttpPost getPost(User user) throws UnsupportedEncodingException {
+  private HttpPost getPost(LoginUser loginUser) throws UnsupportedEncodingException {
     HttpPost post = new HttpPost(keycloakUrl);
     List<NameValuePair> params =
         asList(
             new BasicNameValuePair(GRANT_TYPE_STRING, grantType),
             new BasicNameValuePair(CLIENT_ID_STRING, clientId),
-            new BasicNameValuePair("username", user.getEmail()),
-            new BasicNameValuePair("password", user.getPassword()),
+            new BasicNameValuePair("username", loginUser.getEmail()),
+            new BasicNameValuePair("password", loginUser.getPassword()),
             new BasicNameValuePair(CLIENT_SECRET_STRING, clientSecret));
     logger.info("post request to keycloak");
 

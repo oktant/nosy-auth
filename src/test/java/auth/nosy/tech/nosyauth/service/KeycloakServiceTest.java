@@ -9,6 +9,7 @@ import auth.nosy.tech.nosyauth.config.KeycloakConfigBean;
 import auth.nosy.tech.nosyauth.dto.TokenCollectionDto;
 import auth.nosy.tech.nosyauth.exception.AuthorizationServerCannotPerformTheOperation;
 import auth.nosy.tech.nosyauth.exception.UserAlreadyExistException;
+import auth.nosy.tech.nosyauth.model.LoginUser;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
 import auth.nosy.tech.nosyauth.model.User;
 import java.io.IOException;
@@ -36,15 +37,20 @@ public class KeycloakServiceTest {
 
   private String email = "test@nosy.tech";
   private User user;
+  private LoginUser loginUser;
 
   @Before
   public void setUser() {
-
+    loginUser=new LoginUser();
     user = new User();
     user.setEmail(email);
     user.setFirstName("Test");
     user.setLastName("Nosy");
     user.setPassword("dajsndjasn");
+    loginUser.setEmail(email);
+    loginUser.setPassword("dajsndjasn");
+
+
   }
 
   @Test
@@ -168,8 +174,8 @@ public class KeycloakServiceTest {
   @Test
   public void getTokens() throws IOException {
     TokenCollection tokenCollection = mock(TokenCollection.class);
-    when(keycloakConfigBean.getTokens(user)).thenReturn(tokenCollection);
-    assertNotNull(keycloakService.getTokens(user));
+    when(keycloakConfigBean.getTokens(loginUser)).thenReturn(tokenCollection);
+    assertNotNull(keycloakService.getTokens(loginUser));
   }
 
   @Test
