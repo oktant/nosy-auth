@@ -6,7 +6,6 @@ import auth.nosy.tech.nosyauth.exception.InvalidUsernameAndPasswordException;
 import auth.nosy.tech.nosyauth.exception.RefreshTokenException;
 import auth.nosy.tech.nosyauth.model.LoginUser;
 import auth.nosy.tech.nosyauth.model.TokenCollection;
-import auth.nosy.tech.nosyauth.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
