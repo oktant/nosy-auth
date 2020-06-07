@@ -20,8 +20,7 @@ before_install:
    - sudo pip3 install -U setuptools  
    - python3.6 -V
    - pip -V
-   - pip3 install awscli
-   - pip3 install --upgrade pip   
+   - python3.6 -m pip install awscli
 script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
   - ./mvnw clean install -B
