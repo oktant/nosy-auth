@@ -1,3 +1,4 @@
+sudo: required
 language: java python
 dist: trusty
 jdk: oraclejdk8
