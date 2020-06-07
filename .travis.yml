@@ -17,6 +17,9 @@ script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
   - ./mvnw clean install -B
   - mvn clean verify sonar:sonar -Pcoverage 
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker build -t oktayalizada/$NOSY_AUTH_IMAGE .
+  - docker push oktayalizada/$NOSY_AUTH_IMAGE
 
 cache:
   directories:
@@ -26,11 +29,6 @@ cache:
 services:
   - docker
 
-after_script: 
-   - docker login -u $DOCKER_USER -p $DOCKER_PASS
-   - docker build -t oktayalizada/$NOSY_AUTH_IMAGE .
-   - docker push oktayalizada/$NOSY_AUTH_IMAGE
-   
 after_success:
   - export PATH=$PATH:$HOME/.local/bin 
   - pip install awscli 
