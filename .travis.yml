@@ -28,8 +28,8 @@ services:
   - docker
 
 after_success:
-  - pip install awscli
-  - pip install --upgrade pip
+  - pip3 install awscli
+  - pip3 install --upgrade pip
   - export PATH=$PATH:$HOME/.local/bin 
   - eval $(aws ecr get-login --no-include-email --region eu-north-1)
   - docker build -t covidere .
