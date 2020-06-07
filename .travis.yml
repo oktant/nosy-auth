@@ -35,6 +35,7 @@ services:
 
 after_success:
   - export PATH=$PATH:$HOME/.local/bin 
+  - pip install --upgrade pip
   - pip install awscli # install aws cli w/o sudo
   - eval $(aws ecr get-login --no-include-email --region eu-north-1)
   - docker build -t covidere .
