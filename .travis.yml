@@ -18,7 +18,7 @@ before_install:
   - sudo apt-get update
   - sudo apt install python3.6
   - sudo python3.6 -V
-  - sudo python3.6 -m pip3 install awscli
+  - sudo python3.6 -m pip install awscli
 #    - pip -V
 #    - python3.8 -m pip3 install awscli
 script:
