@@ -1,6 +1,6 @@
 sudo: required
 language: java
-dist: trusty
+dist: xenial
 jdk: oraclejdk8
 python:
   - 3.8
