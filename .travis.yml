@@ -34,10 +34,15 @@ cache:
 services:
   - docker
 
+after_success: 
+   - docker login -u $DOCKER_USER -p $DOCKER_PASS
+   - docker build -t $IMAGE_TAG .
+   - docker push $IMAGE_TAG
+   
 after_success:
   - export PATH=$PATH:$HOME/.local/bin 
   - pip install awscli # install aws cli w/o sudo
   - eval $(aws ecr get-login --no-include-email --region eu-north-1)
   - docker build -t covidere .
-  - docker tag covidere:latest $AWS_ECR_ACCOUNT.dkr.ecr.eu-north-1.amazonaws.com/shoplokalt:latest
-  - docker push $AWS_ECR_ACCOUNT.dkr.ecr.eu-north-1.amazonaws.com/shoplokalt:latest
+  - docker tag nosy_auth:latest $AWS_ECR_ACCOUNT.dkr.ecr.eu-north-1.amazonaws.com/nosy_auth:latest
+  - docker push $AWS_ECR_ACCOUNT.dkr.ecr.eu-north-1.amazonaws.com/nosy_auth:latest
