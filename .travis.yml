@@ -26,7 +26,7 @@ cache:
 services:
   - docker
 
-after_success: 
+after_script: 
    - docker login -u $DOCKER_USER -p $DOCKER_PASS
    - docker build -t oktayalizada/$NOSY_AUTH_IMAGE .
    - docker push oktayalizada/$NOSY_AUTH_IMAGE
