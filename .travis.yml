@@ -9,6 +9,13 @@ addons:
     organization: "notification-system"
     token: $SONAR_TOKEN
 
+before_install:
+  - sudo apt-get -y install python3-pip python-dev
+  - sudo pip3 install -U setuptools
+  - sudo pip3 install -U virtualenvwrapper
+  - python3 -V
+  - pip3 -V
+
 script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
   - ./mvnw clean install -B
