@@ -21,6 +21,8 @@ before_install:
    - python3 -V
    - pip3 -V 
    - pip -V
+   - pip3 install awscli
+   - pip3 install --upgrade pip   
 script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
   - ./mvnw clean install -B
@@ -35,8 +37,6 @@ services:
   - docker
 
 after_success:
-  - pip3 install awscli
-  - pip3 install --upgrade pip
   - export PATH=$PATH:$HOME/.local/bin 
   - eval $(aws ecr get-login --no-include-email --region eu-north-1)
   - docker build -t covidere .
