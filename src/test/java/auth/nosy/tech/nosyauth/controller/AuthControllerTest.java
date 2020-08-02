@@ -51,14 +51,14 @@ public class AuthControllerTest {
     }
 
     @Test
-    public void logout() {
+    public void logoutTest() {
         HttpServletRequest httpServletRequest= Mockito.mock(HttpServletRequest.class);
         doNothing().when(userService).logoutUser(httpServletRequest);
         assertEquals(HttpStatus.NO_CONTENT, authController.logout(httpServletRequest).getStatusCode());
     }
 
     @Test
-    public void isAuthenticated()  {
+    public void isAuthenticatedTest()  {
         TokenCollectionDto tokenCollectionDto=new TokenCollectionDto();
         tokenCollectionDto.setAccessToken("testToken");
         TokenDto tokenDto=new TokenDto();
@@ -68,24 +68,24 @@ public class AuthControllerTest {
     }
 
     @Test
-    public void getToken() throws IOException {
+    public void getTokenTest() throws IOException {
         assertEquals(HttpStatus.OK, authController.getToken(loginUserDto).getStatusCode());
     }
 
     @Test
-    public void newUser() {
+    public void newUserTest() {
         assertEquals(HttpStatus.CREATED, authController.newUser(userDto).getStatusCode());
     }
 
     @Test
-    public void deleteUsername() {
+    public void deleteUsernameTest() {
         HttpServletRequest httpServletRequest= Mockito.mock(HttpServletRequest.class);
         doNothing().when(userService).deleteUser(httpServletRequest);
         assertEquals(HttpStatus.NO_CONTENT, authController.deleteUsername(httpServletRequest).getStatusCode());
     }
 
     @Test
-    public void getUserProfile() {
+    public void getUserProfileTest() {
         User user= UserMapper.INSTANCE.toUser(userDto);
         HttpServletRequest httpServletRequest= Mockito.mock(HttpServletRequest.class);
         doReturn(user).when(userService).getUserInfo(httpServletRequest);

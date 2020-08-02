@@ -35,7 +35,7 @@ public class UserServiceTest {
 
 
     @Test
-    public void testUser(){
+    public void testUserTest(){
         assertEquals("Nosy", user.getLastName());
         assertEquals("Test", user.getFirstName());
         String userString="User{email='test@nosy.tech', password='dajsndjasn', firstName='Test', lastName='Nosy'}";
@@ -43,7 +43,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getUserInfo() {
+    public void getUserInfoTest() {
 
         HttpServletRequest httpServletRequest=mock(HttpServletRequest.class);
         Principal principal=mock(Principal.class);
@@ -54,7 +54,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void deleteUser() {
+    public void deleteUserTest() {
         HttpServletRequest httpServletRequest=mock(HttpServletRequest.class);
         Principal principal=mock(Principal.class);
         when(httpServletRequest.getUserPrincipal()).thenReturn(principal);
@@ -64,7 +64,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void logoutUser() {
+    public void logoutUserTest() {
         HttpServletRequest httpServletRequest=mock(HttpServletRequest.class);
         Principal principal=mock(Principal.class);
         when(httpServletRequest.getUserPrincipal()).thenReturn(principal);
@@ -73,25 +73,25 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addUser() {
+    public void addUserTest() {
         doNothing().when(keycloakService).registerNewUser(user);
         Assert.assertEquals(user.getEmail(),userService.addUser(user).getEmail());
     }
     @Test(expected = PasswordIsNotValidException.class)
-    public void addUserWithInvalidPassword() {
+    public void addUserWithInvalidPasswordTest() {
         User userWithInvalidPassword=new User();
         user.setEmail("test@nosy.tech");
         user.setPassword("");
         Assert.assertEquals(user.getEmail(),userService.addUser(userWithInvalidPassword).getEmail());
     }
     @Test(expected = PasswordIsNotValidException.class)
-    public void addUserWithInvalidNullPassword() {
+    public void addUserWithInvalidNullPasswordTest() {
         User userWithInvalidPassword=new User();
         user.setEmail("test@nosy.tech");
         Assert.assertEquals(user.getEmail(),userService.addUser(userWithInvalidPassword).getEmail());
     }
     @Test(expected = PasswordIsNotValidException.class)
-    public void addUserWithInvalidLength5Password() {
+    public void addUserWithInvalidLength5PasswordTest() {
         User userWithInvalidPassword=new User();
         user.setEmail("test@nosy.tech");
         user.setPassword("12345");
@@ -100,7 +100,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = PasswordIsNotValidException.class)
-    public void addUserWithInvalidLength0Password() {
+    public void addUserWithInvalidLength0PasswordTest() {
         User userWithInvalidPassword=new User();
         user.setEmail("test@nosy.tech");
         user.setPassword("");

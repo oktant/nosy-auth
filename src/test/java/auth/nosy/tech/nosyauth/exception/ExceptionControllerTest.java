@@ -16,19 +16,19 @@ public class ExceptionControllerTest {
     ExceptionController exceptionController;
 
     @Test
-    public void authorizationServerCannotPerformTheOperation() {
+    public void authorizationServerCannotPerformTheOperationTest() {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,
                 exceptionController.authorizationServerCannotPerformTheOperation().getStatusCode());
     }
 
     @Test
-    public void refreshTokenException(){
+    public void refreshTokenExceptionTest(){
         assertEquals(HttpStatus.BAD_REQUEST,
                 exceptionController.refreshTokenException().getStatusCode());
     }
 
     @Test
-    public void invalidUsernameOrPassword(){
+    public void invalidUsernameOrPasswordTest(){
         assertEquals(HttpStatus.UNAUTHORIZED,
                 exceptionController.invalidUsernameOrPassword().getStatusCode());
     }

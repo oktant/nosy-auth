@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageErrorTest {
 
     @Test
-    void getMessage() {
+    void getMessageTest() {
         assertEquals("Authorization server is not responding, please try again later", MessageError.ACCESS_FORBIDDEN_EXCEPTION.getMessage());
     }
 }

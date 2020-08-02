@@ -54,7 +54,7 @@ public class KeycloakServiceTest {
   }
 
   @Test
-  public void isAuthenticatedFalse() {
+  public void isAuthenticatedFalseTest() {
     String token = "addsada";
 
     when(keycloakConfigBean.getPostForAuthentication(any())).thenReturn(false);
@@ -63,14 +63,14 @@ public class KeycloakServiceTest {
   }
 
   @Test
-  public void isAuthenticatedTrue() {
+  public void isAuthenticatedTrueTest() {
     String token = "addsada";
     when(keycloakConfigBean.getPostForAuthentication(any())).thenReturn(true);
     assertTrue(keycloakService.isAuthenticated(token));
   }
 
   @Test(expected = Test.None.class)
-  public void logoutUserNotFound() {
+  public void logoutUserNotFoundTest() {
     String username = "dadas";
     RealmResource realmResource = mock(RealmResource.class);
     UsersResource usersResource = mock(UsersResource.class);
@@ -80,7 +80,7 @@ public class KeycloakServiceTest {
   }
 
   @Test(expected = Test.None.class)
-  public void logoutUserSuccess() {
+  public void logoutUserSuccessTest() {
     String username = "dadas";
     RealmResource realmResource = mock(RealmResource.class);
     UsersResource usersResource = mock(UsersResource.class);
@@ -92,7 +92,7 @@ public class KeycloakServiceTest {
   }
 
   @Test(expected = Test.None.class)
-  public void deleteUsername() {
+  public void deleteUsernameTest() {
     String username = "dadas";
     RealmResource realmResource = mock(RealmResource.class);
     UsersResource usersResource = mock(UsersResource.class);
@@ -102,7 +102,7 @@ public class KeycloakServiceTest {
   }
 
   @Test
-  public void getUserInfo() {
+  public void getUserInfoTest() {
     String username = "dadas";
     UsersResource usersResource = mock(UsersResource.class);
     RealmResource realmResource = mock(RealmResource.class);
@@ -112,7 +112,7 @@ public class KeycloakServiceTest {
   }
 
   @Test(expected = UserAlreadyExistException.class)
-  public void registerNewUserFail() throws URISyntaxException {
+  public void registerNewUserFailTest() throws URISyntaxException {
     User user = new User();
     RealmResource realmResource = mock(RealmResource.class);
     UsersResource usersResource = mock(UsersResource.class);
@@ -125,7 +125,7 @@ public class KeycloakServiceTest {
   }
 
   @Test(expected = Test.None.class)
-  public void registerNewUserSuccessWithClient() throws URISyntaxException {
+  public void registerNewUserSuccessWithClientTest() throws URISyntaxException {
     User user = new User();
     RealmResource realmResource = mock(RealmResource.class);
     UsersResource usersResource = mock(UsersResource.class);
@@ -172,14 +172,14 @@ public class KeycloakServiceTest {
   }
 
   @Test
-  public void getTokens() throws IOException {
+  public void getTokensTest() throws IOException {
     TokenCollection tokenCollection = mock(TokenCollection.class);
     when(keycloakConfigBean.getTokens(loginUser)).thenReturn(tokenCollection);
     assertNotNull(keycloakService.getTokens(loginUser));
   }
 
   @Test
-  public void tokenCollection() {
+  public void tokenCollectionTest() {
     String accessToken = "test";
     String tokenType = "type";
     String refreshToken = "refreshToken";
@@ -202,7 +202,7 @@ public class KeycloakServiceTest {
   }
 
   @Test
-  public void tokenCollectionDto() {
+  public void tokenCollectionDtoTest() {
     String accessToken = "test";
     String tokenType = "type";
     String refreshToken = "refreshToken";
