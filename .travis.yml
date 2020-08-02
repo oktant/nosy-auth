@@ -4,7 +4,7 @@ dist: bionic
 jdk: openjdk8
 
 env:
-  NOSY_AUTH_IMAGE: nosy-auth:2.4
+  NOSY_AUTH_IMAGE: nosy-auth:2.4.1
   
 addons:
   sonarcloud:
